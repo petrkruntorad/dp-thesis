@@ -1,0 +1,115 @@
+{% extends 'admin_base.html.twig' %}
+{% block title %}Přehrávací seznam | Detail{% endblock %}
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Detail přehrávacího seznamu: {{ playlist_data.name }}</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ path('admin_playlists_index') }}">Přehrávací seznamy</a></li>
+                        <li class="breadcrumb-item active">Detail</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-12">
+                    {{ component('PlaylistMediaFormComponent', {
+                        form: form,
+                        playlist: playlist_data,
+                        playlistMedia: playlist_media,
+                    }) }}
+                </div>
+
+                <div class="col-12">
+                    <!-- Default box -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Přehrávané položky</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Název</th>
+                                        <th>Vlastní doba přehrávání</th>
+                                        <th>Přehrávat od</th>
+                                        <th>Přehrávat do</th>
+                                        <th class="text-center">Akce</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for item in playlist_media_paginator %}
+                                        <tr>
+                                            <td>
+                                                {{ item.id }}
+                                            </td>
+                                            <td>
+                                                <a href="{{ path('admin_media_show', {id: item.media.id}) }}" title="Zobrazit multimédium: {{ item.media.name }}">
+                                                    {{ item.media.name }}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                {% if item.customTime %}
+                                                    Ano
+                                                {% else %}
+                                                    Ne
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ item.showFrom|date('H:i:s')|default('---') }}</td>
+                                            <td>{{ item.showTo|date('H:i:s')|default('---') }}</td>
+                                            <td class="text-center">
+                                                <a href="{{ path('admin_playlists_show_edit_playlist_media', {id: playlist_data.id, playlist_media_id: item.id}) }}"
+                                                   title="Upravit multimédium pro přehravací seznam" class="m-2">
+                                                    <i class="fas fa-pen"></i>
+                                                </a>
+                                                <a href="{{ path('admin_playlists_show_delete_playlist_media', {id: playlist_data.id, playlist_media_id: item.id}) }}"
+                                                   title="Smazat multimédium z přehrávacího seznamu" class="m-2 text-red"
+                                                   onclick="return confirm('Opravdu si přejete smazat toto multimédium z tohoto přehrávacího seznamu? Tato operace je nevratná.');">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                        {% if playlist_media_paginator.pageCount > 1 %}
+                            <div class="card-footer">
+
+                                <div class="navigation custom-navigation pt-2 pb-4">
+                                    {{ knp_pagination_render(playlist_media_paginator) }}
+                                </div>
+                            </div>
+                            <!-- /.card-footer-->
+                        {% endif %}
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!--/.col (right) -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

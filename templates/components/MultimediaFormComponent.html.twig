@@ -1,0 +1,39 @@
+<div{{ attributes }}>
+    <div class="card card-primary">
+        <!-- form start -->
+        {{ form_start(form, {
+            'multipart' : true,
+        }) }}
+        <div class="card-body">
+            {{ form_row(form.name) }}
+            {{ form_row(form.mediaType) }}
+            <div class="pt-3 mb-3" data-live-id="wrapper-{{ form.mediaType.vars.value }}">
+                {% if form.mediaData is defined %}
+                    {% if form.mediaType.vars.value == "IMAGE" or form.mediaType.vars.value == "VIDEO" %}
+                        <div data-live-ignore>
+                            {{ form_row(form.mediaData) }}
+                        </div>
+                    {% else %}
+                        {{ form_row(form.mediaData) }}
+                    {% endif %}
+                {% endif %}
+                <div class="form-text text-muted">
+                    <p>
+                        Aktuální multimédium: {{ media.mediaData|default('Nenahráno') }}
+                    </p>
+                    {% if media.mediaType.value == "IMAGE" %}
+                        {% if media.mediaData is defined and media.mediaData is not empty %}
+                            <img src="{{ asset('uploads/multimedia/'~media.mediaData) }}" alt="{{ media.name }}" class="img-thumbnail" width="150">
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- /.card-body -->
+
+        <div class="card-footer text-right">
+            {{ form_widget(form.save) }}
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>

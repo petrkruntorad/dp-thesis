@@ -1,0 +1,29 @@
+{% extends 'email_base.html.twig' %}
+{% block mail_heading %}Nový účet{% endblock %}
+{% block content %}
+    <row class="content">
+        <columns class="content__inner">
+            <row>
+                <columns>
+                    <p>
+                        Dobrý den,
+                    </p>
+                    <p>
+                        Byl vám zřízen nový uživatelský účet s následujícími údaji:
+                    </p>
+                    <ul>
+                        <li>
+                            <strong>Email:</strong> {{ email_address }}
+                        </li>
+                        <li>
+                            <strong>Heslo:</strong> {{ password }}
+                        </li>
+                    </ul>
+                    <p>
+                        Pro přihlášení do systému klikněte na následující odkaz: <a href="{{ link }}" title="Přihlásit se">{{ link }}</a>
+                    </p>
+                </columns>
+            </row>
+        </columns>
+    </row>
+{% endblock %}

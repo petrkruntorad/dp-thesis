@@ -1,0 +1,174 @@
+{% extends 'admin_base.html.twig' %}
+{% block title %}Zařízení{% endblock %}
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Správa zařízení</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ path('admin_dashboard') }}"><i
+                                        class="fa fa-home"></i></a></li>
+                        <li class="breadcrumb-item active">Zařízení</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Default box -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Zařízení</h3>
+
+                            <div class="card-tools">
+                                <a href="{{ path('admin_devices_create') }}" class="btn btn-primary w-100"
+                                   title="Přidat zařízení">
+                                    Přidat zařízení
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Název</th>
+                                        <th>Umístění</th>
+                                        <th>Přehrávací seznam</th>
+                                        <th>Lokální IP adresa</th>
+                                        <th>Kapacita uložiště</th>
+                                        <th>Využité uložiště</th>
+                                        <th>První připojení</th>
+                                        <th>Poslední připojení</th>
+                                        <th class="text-center">Akce</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for device in devices %}
+                                        <tr>
+                                            <td>{{ device.id }}</td>
+                                            <td>{{ device.name }}</td>
+                                            <td>{{ device.location }}</td>
+                                            <td>
+                                                <a href="{{ path('admin_playlists_show', {'id': device.playlist.id}) }}" title="Detail přehrávacího seznamu: {{ device.playlist.name }}">
+                                                    {{ device.playlist.name }}
+                                                </a>
+                                            </td>
+                                            <td>{{ device.localIpAddress|default('-') }}</td>
+                                            <td>{{ _self.bytesToSize(device.diskCapacity) }}</td>
+                                            <td>{{ device.diskUsage }} %</td>
+                                            <td>{{ device.firstConnection is empty ? "Nedefinováno" : device.firstConnection|date("d.m.Y H:i") }}</td>
+                                            <td>{{ device.lastConnection is empty ? "Nedefinováno" : device.lastConnection|date("d.m.Y H:i") }}</td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn text-primary"  onclick="showModal('{{ url('player_get_software', {'unique_hash': device.uniqueHash}) }}');">
+                                                    <i class="fas fa-download"></i>
+                                                </button>
+
+                                                <a href="{{ path('player_index', {'unique_hash': device.uniqueHash}) }}"
+                                                   title="Náhled přehrávače" class="m-2 btn text-primary" target="_blank">
+                                                    <i class="fas fa-play"></i>
+                                                </a>
+
+                                                <a href="{{ path('player_get_config', {'unique_hash': device.uniqueHash}) }}"
+                                                   title="Stáhnout soubor konfigurace" class="m-2 btn text-primary" target="_blank">
+                                                    <i class="fas fa-file-export"></i>
+                                                </a>
+
+                                                <a href="{{ path('admin_devices_update', {'id': device.id}) }}"
+                                                   title="Upravit zařízení" class="m-2 btn text-primary">
+                                                    <i class="fas fa-pen"></i>
+                                                </a>
+
+                                                <a href="{{ path('admin_devices_delete', {'id': device.id}) }}"
+                                                   title="Smazat zařízení" class="m-2 btn text-red"
+                                                   onclick="return confirm('Opravdu si přejete smazat toto zařízení? Tato operace je nevratná.')">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                        {% if devices.pageCount > 1 %}
+                            <div class="card-footer">
+
+                                <div class="navigation custom-navigation pt-2 pb-4">
+                                    {{ knp_pagination_render(devices) }}
+                                </div>
+                            </div>
+                            <!-- /.card-footer-->
+                        {% endif %}
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+
+    {% include 'admin/parts/install_player_modal.html.twig' %}
+{% endblock %}
+{% block footer_javascript %}
+    {{ parent() }}
+    <script>
+        function copyCommands() {
+            /* Get the text field */
+            var copyText = document.getElementById("installCommands");
+
+            /* Copy the text inside the text field */
+            navigator.clipboard.writeText(copyText.innerText);
+
+            var copyBtn = document.getElementById("copyBtn");
+            copyBtn.innerText = "Zkopírováno!";
+            copyBtn.classList.remove("btn-default");
+            copyBtn.classList.add("btn-success");
+
+            setTimeout(setCopyBtnDefault, 2000)
+        }
+        function setCopyBtnDefault(){
+            var copyBtn = document.getElementById("copyBtn");
+            copyBtn.innerText = "Zkopírovat";
+            copyBtn.classList.remove("btn-success");
+            copyBtn.classList.add("btn-default");
+        }
+        function showModal(configUrl){
+            $("#installPlayerModal").modal().show();
+            $("#installPlayerModal #downloadUrl").text(configUrl);
+            $("#installPlayerModal #downloadConfigBtn").attr("href",configUrl);
+        }
+    </script>
+{% endblock %}
+
+{% macro bytesToSize(bytes) %}
+    {% apply spaceless %}
+        {% set kilobyte = 1024 %}
+        {% set megabyte = kilobyte * 1024 %}
+        {% set gigabyte = megabyte * 1024 %}
+        {% set terabyte = gigabyte * 1024 %}
+
+        {% if bytes < kilobyte %}
+            {{ bytes ~ ' B' }}
+        {% elseif bytes < megabyte %}
+            {{ (bytes / kilobyte)|number_format(2, '.') ~ ' KB' }}
+        {% elseif bytes < gigabyte %}
+            {{ (bytes / megabyte)|number_format(2, '.') ~ ' MB' }}
+        {% elseif bytes < terabyte %}
+            {{ (bytes / gigabyte)|number_format(2, '.') ~ ' GB' }}
+        {% else %}
+            {{ (bytes / terabyte)|number_format(2, '.') ~ ' TB' }}
+        {% endif %}
+    {% endapply %}
+{% endmacro %}

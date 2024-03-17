@@ -1,0 +1,93 @@
+{% extends 'admin_base.html.twig' %}
+{% block title %}Přehrávací seznamy{% endblock %}
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Přehrávací seznamy</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ path('admin_dashboard') }}"><i
+                                        class="fa fa-home"></i></a></li>
+                        <li class="breadcrumb-item active">Přehrávací seznamy</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Default box -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Přehrávací seznamy</h3>
+
+                            <div class="card-tools">
+                                <a href="{{ path('admin_playlists_create') }}" class="btn btn-primary w-100"
+                                   title="Vytvořit přehrávací seznam">
+                                    Vytvořit přehrávací seznam
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Název</th>
+                                        <th class="text-center">Akce</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for playlist in playlists %}
+                                        <tr>
+                                            <td>{{ playlist.id }}</td>
+                                            <td>{{ playlist.name }}</td>
+                                            <td class="text-center">
+                                                <a href="{{ path('admin_playlists_show', {'id': playlist.id}) }}"
+                                                   title="Spravovat multimédia" class="m-2">
+                                                    <i class="nav-icon fas fa-photo-video"></i>
+                                                </a>
+                                                <a href="{{ path('admin_playlists_update', {'id': playlist.id}) }}"
+                                                   title="Upravit přehrávací seznam" class="m-2">
+                                                    <i class="fas fa-pen"></i>
+                                                </a>
+
+                                                <a href="{{ path('admin_playlists_delete', {'id': playlist.id}) }}"
+                                                   title="Smazat přehrávací seznam" class="m-2 text-red"
+                                                   onclick="return confirm('Opravdu si přejete smazat tento přehrávací seznam? Tato operace je nevratná.')">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                        {% if playlists.pageCount > 1 %}
+                            <div class="card-footer">
+
+                                <div class="navigation custom-navigation pt-2 pb-4">
+                                    {{ knp_pagination_render(playlists) }}
+                                </div>
+                            </div>
+                            <!-- /.card-footer-->
+                        {% endif %}
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+{% endblock %}

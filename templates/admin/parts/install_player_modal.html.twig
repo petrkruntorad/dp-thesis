@@ -1,0 +1,38 @@
+<!-- Modal -->
+<div class="modal fade" id="installPlayerModal" tabindex="-1" role="dialog" aria-labelledby="installPlayerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="installPlayerModalLabel">Instalace přehravače</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <p>Pro stažení instalačních souborů lze na požadovaném zařízení využít tento příkaz.</p>
+                    <div class="col-10">
+                        <code id="installCommands">
+                            mkdir ~/kiosk-player;<br>
+                            cd ~/kiosk-player;<br>
+                            wget -O install.zip <span id="downloadUrl">https://bp.petrkruntorad.cz/devices/get_config/9</span>;<br>
+                            unzip -o install.zip;<br>
+                            sudo apt-get install chromium-chromedriver;<br>
+                            pip install -r requirements.txt
+                            {# pip install python-crontab #}
+                        </code>
+                    </div>
+                    <div class="col-2 d-flex align-items-center">
+                        <button class="btn btn-default" onclick="copyCommands()" id="copyBtn">
+                            Zkopírovat
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavřít</button>
+            </div>
+        </div>
+    </div>
+</div>
+

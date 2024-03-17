@@ -1,0 +1,11 @@
+{% extends 'player_base.html.twig' %}
+{% block title %}Přehravač{% endblock %}
+{% block content %}
+    {% if device is defined and device is not empty %}
+            <twig:MediaPlayerComponent :device="device"/>
+    {% else %}
+        <div class="status-message__wrapper">
+            <h1 class="status-message">{{ status }}</h1>
+        </div>
+    {% endif %}
+{% endblock %}

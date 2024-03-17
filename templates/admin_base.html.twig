@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ app_base_name }} | {% block title %}{% endblock %}</title>
+
+    {% block stylesheets %}
+        <!-- Google Font: Source Sans Pro -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
+        <!-- overlayScrollbars -->
+        <link rel="stylesheet" href="{{ asset('assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="{{ asset('assets/css/adminlte.min.css') }}">
+        {{ encore_entry_link_tags('app_css') }}
+    {% endblock %}
+    {% block javascripts %}
+        <!-- jQuery -->
+        <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            // Defaults
+            const swalInit = swal.mixin({
+                buttonsStyling: false,
+                customClass: {
+                    confirmButton: 'btn btn-primary',
+                    cancelButton: 'btn btn-light',
+                    denyButton: 'btn btn-light',
+                    input: 'form-control'
+                }
+            });
+        </script>
+        {{ encore_entry_script_tags('app_js') }}
+    {% endblock %}
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<!-- Site wrapper -->
+<div class="wrapper">
+    <!-- Navbar -->
+    {{ include('admin/parts/top_navbar.html.twig') }}
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="{{ path('admin_dashboard') }}" class="brand-link">
+            <span class="brand-text font-weight-light">Multimediální kiosek</span>
+        </a>
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar user (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="info w-100 d-flex text-white">
+                    {{ app.user.email }}
+                    <a class="ml-3" href="{{ path('admin_logout') }}" title="Odhlásit se">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Sidebar Menu -->
+            {{ include('admin/parts/sidebar.html.twig') }}
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        {% for message in app.flashes('success') %}
+            <script>
+                swalInit.fire({
+                    title: '{{ message }}',
+                    icon: 'success'
+                });
+            </script>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            <script>
+                swalInit.fire({
+                    title: '{{ message }}',
+                    icon: 'error'
+                });
+            </script>
+        {% endfor %}
+        {% for message in app.flashes('info') %}
+            <script>
+                swalInit.fire({
+                    title: '{{ message }}',
+                    icon: 'info',
+                    showClass: {
+                        popup: 'swal2-noanimation',
+                        backdrop: 'swal2-noanimation'
+                    },
+                    hideClass: {
+                        popup: '',
+                        backdrop: ''
+                    }
+                });
+            </script>
+        {% endfor %}
+        {% block content %}
+
+        {% endblock %}
+    </div>
+    <!-- /.content-wrapper -->
+
+    <footer class="main-footer">
+        <div class="float-right d-none d-sm-block">
+            <b>Version</b> 3.2.0
+        </div>
+        <strong>© 2023 - {{ 'now' | date('Y') }} Petr Kruntorád | Template by © 2014 - 2022 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+{% block footer_javascript %}
+    <!-- Bootstrap 4 -->
+    <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- overlayScrollbars -->
+    <script src="{{ asset('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('assets/js/adminlte.min.js') }}"></script>
+
+{% endblock %}
+</body>
+</html>

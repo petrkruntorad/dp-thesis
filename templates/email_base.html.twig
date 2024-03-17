@@ -1,0 +1,13 @@
+{% apply inky_to_html|inline_css(source('@styles/foundation-emails.css'), source('@styles/emails.css')) %}
+<spacer size="30"></spacer>
+<container>
+    <row class="header">
+        <columns  valign="center">
+            <h1>{{ app_base_name }} - {% block mail_heading %}{% endblock %}</h1>
+        </columns>
+    </row>
+    {% block content %}
+    {% endblock %}
+</container>
+<spacer size="30"></spacer>
+{% endapply %}

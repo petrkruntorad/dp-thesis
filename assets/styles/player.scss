@@ -1,0 +1,61 @@
+@import '@symfony/ux-live-component/styles/live.css';
+
+body {
+  background-color: #000000;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+
+  main {
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    height: 100%;
+    width: 100%;
+
+    .player-component {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+
+      .youtube-iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+      .website-iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+      .image-presentation {
+        height: 100%;
+        max-width: 100%;
+        aspect-ratio: inherit;
+        object-fit: cover;
+        margin: 0 auto;
+        display: flex;
+      }
+
+      #mp4-video-player {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+
+.status-message {
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+
+  &__wrapper {
+    margin: 0 auto;
+  }
+}

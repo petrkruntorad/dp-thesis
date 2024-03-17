@@ -1,0 +1,36 @@
+<div {{
+attributes
+    .add(stimulus_controller('mediaPlayer', {
+        'playlistUrl': path('player_get_playlist', {'unique_hash': device.uniqueHash}),
+        'playlistChanged': device.playlist.getUpdatedAtAsISO8601
+    }))
+}} class="player-component">
+    <!-- component html -->
+    {# checks if currentMedia is defined a set #}
+    {% if currentMedia is defined and currentMedia is not empty %}
+        {# check which media type is set for current media #}
+        {% if currentMedia.mediaType.value == "IMAGE" %}
+            {% if currentMedia.mediaData is defined and currentMedia.mediaData is not empty %}
+                <img src="{{ asset('uploads/multimedia/'~currentMedia.mediaData) }}" alt="{{ currentMedia.name }}"
+                     class="img-fluid image-presentation">
+            {% endif %}
+        {% elseif currentMedia.mediaType.value == "WEBSITE" %}
+            <iframe src="{{ currentMedia.mediaData }}" class="website-iframe"></iframe>
+        {% elseif currentMedia.mediaType.value == "VIDEO" %}
+            <video id="mp4-video-player" autoplay playsinline loop>
+                <source src="{{ asset('uploads/multimedia/'~currentMedia.mediaData) }}" type="video/mp4">
+            </video>
+        {% elseif currentMedia.mediaType.value == "YOUTUBE" %}
+            <iframe src="{{ currentMedia.mediaData|raw }}&autoplay=1&cc_load_policy=1&controls=0&disablekb=1&enablejsapi=1&fs=0&loop=1&modestbranding=1&iv_load_policy=3" title="YouTube video player" frameborder="0"
+                    class="youtube-iframe" id="youtube-player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen></iframe>
+        {% endif %}
+    {% else %}
+        <div class="status-message__wrapper">
+            <h1 class="status-message">
+                Na tomto zařízení není aktuálně dostupný žádný obsah.
+            </h1>
+        </div>
+    {% endif %}
+</div>

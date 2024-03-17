@@ -1,0 +1,11 @@
+{
+  "uniqueHash": "8f5d72dcb48090daf9d002b75d6704f7",
+  "getConfigUrl": "https:\/\/dp.petrkruntorad.cz\/player\/8f5d72dcb48090daf9d002b75d6704f7\/config\/get",
+  "playerUrl": "https:\/\/dp.petrkruntorad.cz\/player\/8f5d72dcb48090daf9d002b75d6704f7",
+  "configUpdateTimeCron": "0 * * * *",
+  "checkIfPlayerIsRunningTimeCron": "*\/5 * * * *",
+  "restartPlayerTimeCron": "0 0 * * *",
+  "updateDeviceDetails": "0 0 * * *",
+  "updateDeviceDetailsUrl": "https:\/\/dp.petrkruntorad.cz\/player\/device\/update-details\/8f5d72dcb48090daf9d002b75d6704f7",
+  "startPlayer": "@reboot"
+}

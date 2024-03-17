@@ -1,0 +1,154 @@
+* {
+    font-family: 'Calibri', sans-serif !important;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+.content {
+    padding: 30px 10px 10px 10px !important;
+    border-collapse: separate !important;
+}
+
+.content__inner:last-child {
+    padding-bottom: 0 !important;
+}
+
+.header {
+    background-color: #15c;
+    border-radius: 8px 8px 0 0;
+    border-collapse: separate !important;
+    padding: 30px 10px !important;
+    vertical-align: middle;
+}
+
+.header * {
+    color: white !important;
+}
+
+.header .columns {
+    padding-bottom: 0;
+    vertical-align: middle;
+}
+
+
+.header h1 {
+    margin-bottom: 0;
+}
+
+.footer {
+    background-color: #15c;
+    border-radius: 0 0 8px 8px;
+    border-collapse: separate !important;
+    padding: 30px 10px !important;
+}
+
+.footer * {
+    color: white !important;
+    text-align: center;
+}
+
+.footer .columns {
+    padding-bottom: 0;
+}
+
+body {
+    background-color: #f7fafc;
+}
+
+.logo {
+    max-width: 80px;
+}
+
+
+table.button table td {
+    text-align: left;
+    color: #fefefe;
+    background: #CD6688;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+}
+
+table.button table td a {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fefefe;
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px 8px 16px;
+    border: 0 solid #2199e8;
+    border-radius: 3px;
+}
+
+.company-details_wrapper {
+    padding-bottom: 0 !important;
+}
+
+.company-details_wrapper p {
+    font-size: 12px;
+    text-align: justify;
+    margin-bottom: 0 !important;
+}
+
+.confidental-info__wrapper {
+    padding-bottom: 0 !important;
+}
+
+.confidental-info__wrapper p {
+    font-size: 12px;
+    text-align: justify;
+}
+
+.content-separator {
+    border-top: 1px dashed #000000;
+}
+
+.container-details__title {
+    font-weight: 600;
+    color: #7A316F;
+}
+
+.container-detail-table {
+    border: 1px solid black;
+}
+
+.container-detail-table th {
+   font-weight: 600;
+}
+
+.container-detail-table td,
+.container-detail-table th,
+.container-detail-table tr{
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.payment-detail-table {
+    border: 1px solid black;
+}
+
+.payment-detail-table th {
+    font-weight: 600;
+}
+
+.payment-detail-table td,
+.payment-detail-table th,
+.payment-detail-table tr{
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.payment-detail-table img {
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+.button-column td {
+    padding: 0 !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    border-collapse: separate !important;
+}

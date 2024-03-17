@@ -1,0 +1,17 @@
+@import '@symfony/ux-dropzone/dist/style.min.css';
+@import '@symfony/ux-live-component/styles/live.css';
+@import 'tom-select/dist/css/tom-select.bootstrap4.min.css';
+body {
+    background-color: lightgray;
+}
+
+label {
+    &.required {
+        position: relative;
+        &:after {
+            content: '*';
+            margin-left: 5px;
+            color: red;
+        }
+    }
+}

@@ -1,0 +1,37 @@
+{% extends 'security_base.html.twig' %}
+{% block content %}
+    <!-- Inner content -->
+    <div class="content-inner">
+
+        <!-- Content area -->
+        <div class="content d-flex justify-content-center align-items-center">
+
+            <!-- Password recovery form -->
+
+            <div class="card mb-0">
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <div class="d-inline-flex bg-primary bg-opacity-10 text-primary lh-1 rounded-pill p-3 mb-3 mt-1">
+                            <i class="ph-arrows-counter-clockwise ph-2x"></i>
+                        </div>
+                        <h5 class="mb-0">Obnova hesla</h5>
+                        <span class="d-block text-muted">Na email Vám byly odeslány instrukce</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <p>
+                            Pokud se Váš email nachází v naší databázi, byly Vám na email odeslány instrukce pro obnovu hesla.
+                        </p>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <!-- /password recovery form -->
+
+        </div>
+        <!-- /content area -->
+    </div>
+    <!-- /inner content -->
+{% endblock %}

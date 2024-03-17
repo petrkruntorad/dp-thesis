@@ -1,0 +1,54 @@
+<nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        {#<li class="nav-item">
+            <a href="{{ path('admin_dashboard')}}" class="nav-link" title="Dashboard">
+                <i class="nav-icon fas fa-home"></i>
+                <p>
+                    Dashboard
+                </p>
+            </a>
+        </li>#}
+        <li class="nav-item">
+            <a href="{{ path('admin_devices_index') }}" class="nav-link {% if app.request.get('_route') in ['admin_devices_index', 'admin_devices_create', 'admin_devices_update'] %}active{% endif %}" title="Zařízení">
+                <i class="nav-icon fas fa-desktop"></i>
+                <p>
+                    Zařízení
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ path('admin_playlists_index') }}" class="nav-link {% if app.request.get('_route') in ['admin_playlists_index', 'admin_playlists_create', 'admin_playlists_update', 'admin_playlists_show',
+                'admin_playlists_show_edit_playlist_media', 'admin_playlists_show_delete_playlist_media'] %}active{% endif %}" title="Seznamy k přehrání">
+                <i class="nav-icon fas fa-play"></i>
+                <p>
+                    Seznamy k přehrání
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ path('admin_media_index') }}" class="nav-link {% if app.request.get('_route') in ['admin_media_index', 'admin_media_create', 'admin_media_update'] %}active{% endif %}" title="Multimédia">
+                <i class="nav-icon fas fa-photo-video"></i>
+                <p>
+                    Multimédia
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ path('admin_users_index') }}" class="nav-link {% if app.request.get('_route') in ['admin_users_index', 'admin_users_create', 'admin_users_update'] %}active{% endif %}" title="Uživatelé">
+                <i class="nav-icon fas fa-user"></i>
+                <p>
+                    Uživatelé
+                </p>
+            </a>
+        </li>
+        <li class="nav-header">Profil</li>
+        <li class="nav-item">
+            <a href="{{ path('admin_profile_password_change') }}" class="nav-link  {% if app.request.get('_route') in ['admin_profile_password_change'] %}active{% endif %}" title="Změnit heslo">
+                <i class="nav-icon fas fa-key"></i>
+                <p>
+                    Změnit heslo
+                </p>
+            </a>
+        </li>
+    </ul>
+</nav>

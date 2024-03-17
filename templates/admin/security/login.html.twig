@@ -1,0 +1,73 @@
+{% extends 'security_base.html.twig' %}
+{% block title %}
+    Přihlášení
+{% endblock %}
+{% block content %}
+    <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+            <a href="{{ path('admin_login') }}" class="h1">Administrace</a>
+            <p>{{ app_base_name }}</p>
+        </div>
+        <div class="card-body">
+            <p class="login-box-msg">Přihlašte se</p>
+
+            <form action="{{ path('admin_login') }}" method="post">
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endfor %}
+                {% for message in app.flashes('error') %}
+                    <div class="alert alert-danger">{{ message }}</div>
+                {% endfor %}
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+                <div class="mb-3">
+                    <label for="inputEmail" class="form-label">Email</label>
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="E-mail" value="{{ last_username }}"
+                               name="email" id="inputEmail" autocomplete="email" required autofocus>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Heslo</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" placeholder="•••••••••••" name="password"
+                               id="inputPassword" autocomplete="current-password" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <div class="icheck-primary">
+                            <input type="checkbox" id="remember" name="_remember_me">
+                            <label for="remember">
+                                Zapamatovat přihlášení
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-12">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                        <button type="submit" class="btn btn-primary btn-block">Přihlásit se</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+
+            <p class="mt-3 mb-1 text-center">
+                <a href="{{ path('app_forgot_password_request') }}" title="Zapomněl jsem heslo">Zapomněl jsem heslo</a>
+            </p>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+{% endblock %}

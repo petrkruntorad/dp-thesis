@@ -1,0 +1,15 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    paths:
+        '%kernel.project_dir%/public/assets/emails': styles
+    form_themes:
+        - 'bootstrap_5_layout.html.twig'
+    globals:
+        app_base_name: '%app.base_name%'
+        app_email: '%app.email%'
+        uploads_multimedia_directory: '%uploads_multimedia_directory%'
+
+
+when@test:
+    twig:
+        strict_variables: true

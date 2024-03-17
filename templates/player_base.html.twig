@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ app_base_name }} | {% block title %}{% endblock %}</title>
+
+    {% block stylesheets %}
+        <!-- Google Font: Source Sans Pro -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        {{ encore_entry_link_tags('player_css') }}
+    {% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('player_js') }}
+    {% endblock %}
+</head>
+<body >
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+{% block footer_javascript %}
+{% endblock %}
+</body>
+</html>

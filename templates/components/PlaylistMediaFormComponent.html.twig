@@ -1,0 +1,34 @@
+<div{{ attributes }}>
+    <div class="card card-primary">
+        <!-- form start -->
+        {{ form_start(form) }}
+
+        <div class="card-body">
+            {{ form_errors(form) }}
+            {{ form_row(form.media) }}
+            {{ form_row(form.customTime) }}
+            <div class="row">
+                <div class="col-md-6">
+                    {% if form.showFrom is defined %}
+                        {{ form_row(form.showFrom) }}
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    {% if form.showTo is defined %}
+                        {{ form_row(form.showTo) }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- /.card-body -->
+
+        <div class="card-footer text-right">
+            {{ form_widget(form.save, {
+                attr: {
+                    'class':  this.hasValidationErrors ? 'disabled' : '',
+                }
+            }) }}
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>
