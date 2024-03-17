@@ -24,7 +24,7 @@ Used Template:
 1. Installs dependencies
 ```
 composer install
-npm install --force
+npm install
 ```
 
 2. Build assets
