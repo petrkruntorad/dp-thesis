@@ -56,6 +56,18 @@ php bin/console d:s:u --force
 Or
 - Import multimedia_kiosk.sql via your database management tool and create .env file from .env.example
 
+## Device init
+Basic installation of scripts is described during scripts download, but there are some additional steps needed to be done.
+1. After downloading of scripts, you need to run following command to initialize cron jobs from player directory:
+```
+python init_device.py
+```
+2. After that it's required to run command directly from device (not via SSH) to obtain display identifier:
+```
+echo $DISPLAY
+```
+3. Returned value needs to be added to cron (running command crontab -e) as DISPLAY=<returned-value> (for example DISPLAY=:0) 
+
 ## License
 [MIT](https://opensource.org/licenses/MIT)
 

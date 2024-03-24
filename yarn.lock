@@ -3042,10 +3042,9 @@ icss-utils@^5.0.0, icss-utils@^5.1.0:
   resolved "https://registry.npmjs.org/icss-utils/-/icss-utils-5.1.0.tgz"
   integrity sha512-soFhflCVWLfRNOPU3iv5Z9VUdT44xFRbzjLsEzSr5AQmgqPMTHdU3PMT1Cf1ssx8fLNJDA1juftYl+PUcv3MqA==
 
-idiomorph@^0.3.0:
+"idiomorph@https://github.com/bigskysoftware/idiomorph.git":
   version "0.3.0"
-  resolved "https://registry.npmjs.org/idiomorph/-/idiomorph-0.3.0.tgz"
-  integrity sha512-UhV1Ey5xCxIwR9B+OgIjQa+1Jx99XQ1vQHUsKBU1RpQzCx1u+b+N6SOXgf5mEJDqemUI/ffccu6+71l2mJUsRA==
+  resolved "git+ssh://git@github.com/bigskysoftware/idiomorph.git#8e40c42cc573609eb6863e72fa3403574974dd7d"
 
 immutable@^4.0.0:
   version "4.3.5"

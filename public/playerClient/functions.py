@@ -44,7 +44,7 @@ def define_cron_job(interval: str, cron_comment: str, command: str):
     # checks if cronjob exists
     if is_cron_job_set(cron_comment):
         # updates cronjob
-        update_cron_job(interval)
+        update_cron_job(interval=interval, cron_comment=cron_comment)
     else:
         # creates new cronjob for main script
         job = cron.new(command=command, comment=cron_comment)
@@ -53,7 +53,7 @@ def define_cron_job(interval: str, cron_comment: str, command: str):
 
 
 # updates existing cron job
-def update_cron_job(interval: str, cron_comment: str, command: str):
+def update_cron_job(interval: str, cron_comment: str):
     # looks for cronjob with specified comment
     for job in cron:
         if job.comment == cron_comment:

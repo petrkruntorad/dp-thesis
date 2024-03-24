@@ -70,7 +70,8 @@
                                             <td>{{ device.firstConnection is empty ? "Nedefinováno" : device.firstConnection|date("d.m.Y H:i") }}</td>
                                             <td>{{ device.lastConnection is empty ? "Nedefinováno" : device.lastConnection|date("d.m.Y H:i") }}</td>
                                             <td class="text-center">
-                                                <button type="button" class="btn text-primary"  onclick="showModal('{{ url('player_get_software', {'unique_hash': device.uniqueHash}) }}');">
+                                                <button type="button" class="btn text-primary" onclick="showModal('{{ url('player_get_software', {'unique_hash': device.uniqueHash}) }}');"
+                                                aria-label="Získat skripty pro stažení" title="Získat skripty pro stažení">
                                                     <i class="fas fa-download"></i>
                                                 </button>
 
@@ -80,7 +81,7 @@
                                                 </a>
 
                                                 <a href="{{ path('player_get_config', {'unique_hash': device.uniqueHash}) }}"
-                                                   title="Stáhnout soubor konfigurace" class="m-2 btn text-primary" target="_blank">
+                                                   title="Stáhnout konfigurační soubor" class="m-2 btn text-primary" target="_blank">
                                                     <i class="fas fa-file-export"></i>
                                                 </a>
 
