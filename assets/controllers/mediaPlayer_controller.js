@@ -121,10 +121,8 @@ export default class extends Controller {
             console.log('refreshing');
             //sets current media to null to prevent showing of old media
             this.component.set('currentMedia', null);
-            //component.set('currentMedia', null);
             //emits event to update media
             this.component.emit('media:update');
-            //component.emit('media:update');
             //loads playlist again
             await this.loadPlaylist()
             //re-renders component
