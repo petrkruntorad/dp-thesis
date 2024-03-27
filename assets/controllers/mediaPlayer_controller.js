@@ -127,7 +127,6 @@ export default class extends Controller {
             await this.loadPlaylist()
             //re-renders component
             this.component.render();
-            //component.render();
             console.log('refreshed');
         }, timeToRefresh);
     }
