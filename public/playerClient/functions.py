@@ -241,7 +241,7 @@ def get_config_from_server():
     # checks if get config url is available
     if get_config_url is not None:
         # sends request for current config
-        response = requests.post(get_config_url, verify=False)
+        response = requests.post(get_config_url)
         # checks if server responded successfully
         if response.status_code == 200:
             # gets content
@@ -273,7 +273,7 @@ def update_device_details():
         data = {'ipAddress': get_current_device_ip(), 'diskUsage': get_disk_usage().percent,
                 'diskCapacity': get_disk_usage().total}
         # sends data to endpoint
-        insert_request = session.post(url=update_device_details_url, data=data, verify=False)
+        insert_request = session.post(url=update_device_details_url, data=data)
         # prints response
         print(insert_request.text)
 
@@ -324,39 +324,34 @@ def init_cron():
             define_cron_job(config['configUpdateTimeCron'], update_config_cron_job_identifier,
                             get_update_config_command())
         else:
-            update_cron_job(config['configUpdateTimeCron'], update_config_cron_job_identifier,
-                            get_update_config_command())
+            update_cron_job(config['configUpdateTimeCron'], update_config_cron_job_identifier)
 
         # check if cron job with specified identifier is not set and then creates it otherwise updates existing one
         if not is_cron_job_set(check_player_cron_job_identifier):
             define_cron_job(config['checkIfPlayerIsRunningTimeCron'], check_player_cron_job_identifier,
                             get_check_if_browser_is_running_command())
         else:
-            update_cron_job(config['checkIfPlayerIsRunningTimeCron'], check_player_cron_job_identifier,
-                            get_check_if_browser_is_running_command())
+            update_cron_job(config['checkIfPlayerIsRunningTimeCron'], check_player_cron_job_identifier)
 
         # check if cron job with specified identifier is not set and then creates it otherwise updates existing one
         if not is_cron_job_set(restart_player_cron_job_identifier):
             define_cron_job(config['restartPlayerTimeCron'], restart_player_cron_job_identifier,
                             get_refresh_browser_command())
         else:
-            update_cron_job(config['restartPlayerTimeCron'], restart_player_cron_job_identifier,
-                            get_refresh_browser_command())
+            update_cron_job(config['restartPlayerTimeCron'], restart_player_cron_job_identifier)
 
         # check if cron job with specified identifier is not set and then creates it otherwise updates existing one
         if not is_cron_job_set(update_device_details_cron_job_identifier):
             define_cron_job(config['updateDeviceDetails'],
                             update_device_details_cron_job_identifier, get_update_device_details_command())
         else:
-            update_cron_job(config['updateDeviceDetails'],
-                            update_device_details_cron_job_identifier, get_update_device_details_command())
+            update_cron_job(config['updateDeviceDetails'], update_device_details_cron_job_identifier)
 
         # check if cron job with specified identifier is not set and then creates it otherwise updates existing one
         if not is_cron_job_set(init_player_after_start_cron_job_identifier):
             define_cron_job(config['startPlayer'],
                             init_player_after_start_cron_job_identifier, init_player_after_start())
         else:
-            update_cron_job(config['startPlayer'],
-                            init_player_after_start_cron_job_identifier, init_player_after_start())
+            update_cron_job(config['startPlayer'], init_player_after_start_cron_job_identifier)
     else:
         print('Config not defined.')

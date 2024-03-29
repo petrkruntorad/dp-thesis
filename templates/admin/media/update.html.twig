@@ -24,6 +24,7 @@
                 <div class="row">
                     <!-- left column -->
                     <div class="col-md-12">
+                        {{ media_service.youtubeVideoIdFromUrl(media.mediaData) }}
                         <!-- general form elements -->
                         {{ component('MultimediaFormComponent', {
                             form: media_form,

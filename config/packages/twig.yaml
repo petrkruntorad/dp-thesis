@@ -8,7 +8,7 @@ twig:
         app_base_name: '%app.base_name%'
         app_email: '%app.email%'
         uploads_multimedia_directory: '%uploads_multimedia_directory%'
-
+        media_service : '@App\Services\MediaService'
 
 when@test:
     twig:
