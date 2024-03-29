@@ -3,6 +3,7 @@ import os
 import requests
 import socket
 import json
+import time
 from crontab import CronTab
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
@@ -224,6 +225,10 @@ def kill_browser_process():
 def restart_browser_process():
     # kills browser processes
     kill_browser_process()
+
+    # sleeps for 10 seconds to let browser close
+    time.sleep(10)
+
     # starts new browser process
     start_browser_process()
 
