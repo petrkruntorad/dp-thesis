@@ -6,6 +6,7 @@ use App\Entity\Playlist;
 use App\Entity\PlaylistMedia;
 use App\Form\admin\PlaylistFormType;
 use App\Form\admin\PlaylistMediaFormType;
+use App\Repository\DeviceRepository;
 use App\Repository\PlaylistMediaRepository;
 use App\Repository\PlaylistRepository;
 use DateTime;
@@ -25,6 +26,7 @@ class AdminPlaylistsController extends AbstractController
         private readonly PlaylistRepository      $playlistRepository,
         private readonly PlaylistMediaRepository $playlistMediaRepository,
         private readonly PaginatorInterface      $paginator,
+        private readonly DeviceRepository        $deviceRepository
     )
     {
     }
@@ -129,6 +131,17 @@ class AdminPlaylistsController extends AbstractController
     public function delete(Playlist $playlist)
     {
         try {
+            // finds every relation between playlist and device
+            $relatedPlaylist = $this->deviceRepository->findBy(['playlist' => $playlist]);
+            // if playlist is assigned to any device, returns error message
+            if(count($relatedPlaylist) > 0){
+                $this->addFlash(
+                    'error',
+                    'Nelze smazat přehrávací seznam, který je přiřazen k zařízení.'
+                );
+                return $this->redirectToRoute('admin_playlists_index');
+            }
+
             // finds every relation between playlist and media and removes it
             $relatedPlaylistMedia = $this->playlistMediaRepository->findBy(['playlist' => $playlist]);
             foreach ($relatedPlaylistMedia as $media) {

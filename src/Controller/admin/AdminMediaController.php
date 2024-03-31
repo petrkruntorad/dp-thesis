@@ -8,6 +8,8 @@ use App\Enum\MediaTypeEnum;
 use App\Form\admin\MediaFormType;
 use App\Form\admin\PlaylistFormType;
 use App\Repository\MediaRepository;
+use App\Repository\PlaylistMediaRepository;
+use App\Repository\PlaylistRepository;
 use App\Services\FileService;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -25,6 +27,7 @@ class AdminMediaController extends AbstractController
         private readonly MediaRepository $mediaRepository,
         private readonly PaginatorInterface $paginator,
         private readonly FileService $fileService,
+        private readonly PlaylistMediaRepository $playlistMediaRepository,
     )
     {
     }
@@ -186,6 +189,19 @@ class AdminMediaController extends AbstractController
     public function delete(Media $media)
     {
         try {
+            // finds related playlist
+            $relatedPlaylistMedia = $this->playlistMediaRepository->findBy(['media' => $media]);
+            // checks if media is related to any playlist
+            if(count($relatedPlaylistMedia) > 0)
+            {
+                //returns error message
+                $this->addFlash(
+                    'error',
+                    'Multimédium se nepodařilo smazat, protože je přiřazeno k seznamu přehrání.'
+                );
+                return $this->redirectToRoute('admin_media_index');
+            }
+
             //clones media object
             $originalFile = clone $media;
 

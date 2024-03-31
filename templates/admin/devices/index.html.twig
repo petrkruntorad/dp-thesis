@@ -65,8 +65,20 @@
                                                 </a>
                                             </td>
                                             <td>{{ device.localIpAddress|default('-') }}</td>
-                                            <td>{{ _self.bytesToSize(device.diskCapacity) }}</td>
-                                            <td>{{ device.diskUsage }} %</td>
+                                            <td>
+                                                {% if device.diskCapacity is defined and device.diskCapacity is not empty %}
+                                                    {{ _self.bytesToSize(device.diskCapacity) }}
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if device.diskCapacity is defined and device.diskCapacity is not empty %}
+                                                    {{ device.diskUsage }} %
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+                                            </td>
                                             <td>{{ device.firstConnection is empty ? "Nedefinováno" : device.firstConnection|date("d.m.Y H:i") }}</td>
                                             <td>{{ device.lastConnection is empty ? "Nedefinováno" : device.lastConnection|date("d.m.Y H:i") }}</td>
                                             <td class="text-center">
